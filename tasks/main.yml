@@ -1,0 +1,14 @@
+---
+- name: Install WPA supplicant
+  apt: name=wpasupplicant state=present
+
+- name: Configure wifi
+  lineinfile:
+    dest: /etc/network/interfaces
+    line: "{{item.line}}"
+    insertafter: "{{item.after}}"
+  with_items:
+    - { line: 'auto wlan0', after: 'EOF' }
+    - { line: 'iface wlan0 inet dhcp', after: 'EOF' }
+    - { line: '  wpa-ssid {{wifi_ssid}}', after: 'EOF' }
+    - { line: '  wpa-psk {{wifi_psk}}', after: 'EOF' }
