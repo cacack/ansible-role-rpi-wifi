@@ -1,6 +1,7 @@
 ---
 - name: Install WPA supplicant
   apt: name=wpasupplicant state=present
+  tags: [ 'wifi', 'packages' ]
 
 - name: Configure wifi
   lineinfile:
@@ -12,3 +13,4 @@
     - { line: 'iface wlan0 inet dhcp', after: 'EOF' }
     - { line: '  wpa-ssid {{wifi_ssid}}', after: 'EOF' }
     - { line: '  wpa-psk {{wifi_psk}}', after: 'EOF' }
+  tags: [ 'wifi' ]
